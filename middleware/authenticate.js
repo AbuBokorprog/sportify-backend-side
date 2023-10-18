@@ -1,11 +1,12 @@
 const jwt = require("jsonwebtoken");
 const user = require("../models/User");
+const error = require("../utils/error");
 
 async function authenticate(req, res, next) {
   try {
     let token = req.headers.authorization;
     if (!token) {
-      return res.status(401).json({message: "Unauthorized"});
+      throw error("Unauthorized", 401);
     }
 
     token = token.split(" ")[1];
@@ -14,14 +15,14 @@ async function authenticate(req, res, next) {
     const isUser = await user.getByEmail(decoded.email);
 
     if (!isUser) {
-      return res.status(404).json({message: "User not found"});
+      throw error("User not found", 400);
     }
 
     req.user = isUser;
 
     next();
   } catch (error) {
-    return res.status(500).json({message: "Unauthorized"});
+    throw error("Authentication failed");
   }
 }
 

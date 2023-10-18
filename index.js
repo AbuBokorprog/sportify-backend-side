@@ -14,8 +14,12 @@ app.get("/", (req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  console.error(err.message);
-  res.json({message: "Something went wrong on server!"});
+  console.log(err);
+
+  const message = err.message ? err.message : "Server Error Occurred";
+  const status = err.statue ? err.status : 500;
+
+  return res.status(status).json({message});
 });
 
 app.listen(port, () => {
