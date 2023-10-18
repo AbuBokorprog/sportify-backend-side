@@ -1,7 +1,7 @@
-const connectToDatabase = require("../db");
+const {client} = require("../db");
 
 const userCollection = async () => {
-  const db = await connectToDatabase();
+  const db = await client.db();
   const collection = db.collection("user");
   return collection;
 };

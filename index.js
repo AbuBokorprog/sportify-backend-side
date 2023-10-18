@@ -4,6 +4,7 @@ const app = express();
 const port = process.env.PORT || 3001;
 
 const routes = require("./routes");
+const {connectToDatabase} = require("./db");
 
 app.use(express.json());
 
@@ -22,6 +23,7 @@ app.use((err, req, res, next) => {
   return res.status(status).json({message});
 });
 
-app.listen(port, () => {
+app.listen(port, async () => {
+  await connectToDatabase();
   console.log(`Sportify app running port ${port} http://localhost:${port}`);
 });
