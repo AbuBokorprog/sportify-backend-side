@@ -21,8 +21,8 @@ async function authenticate(req, res, next) {
     req.user = isUser;
 
     next();
-  } catch (error) {
-    throw error("Authentication failed");
+  } catch (err) {
+    next(err);
   }
 }
 

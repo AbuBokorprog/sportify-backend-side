@@ -7,6 +7,12 @@ class User {
     return result;
   }
 
+  async getUser() {
+    const collection = await userCollection();
+    const result = await collection.find().toArray();
+    return result;
+  }
+
   async getByEmail(email) {
     const collection = await userCollection();
     const result = await collection.findOne({email});
