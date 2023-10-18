@@ -1,7 +1,8 @@
 const router = require("express").Router();
 const user = require("../models/User");
+const jwt = require("jsonwebtoken");
 
-router.post("/", async (req, res) => {
+router.post("/register", async (req, res) => {
   const data = req.body;
 
   try {
@@ -24,4 +25,23 @@ router.post("/", async (req, res) => {
     res.status(500).json({message: "Failed to create user!"});
   }
 });
+
+router.post("/login", async (req, res) => {
+  const data = req.body;
+
+  try {
+    if (!data.name || !data.email) {
+      return res.status(400).json({
+        message: "Please provide name and email!",
+      });
+    }
+
+    const token = jwt.sign(data, process.env.AUTH_SECRET_KEY);
+
+    return res.status(200).json({message: "Login successfully!", token});
+  } catch (e) {
+    res.status(500).json({message: "Failed to login!"});
+  }
+});
+
 module.exports = router;

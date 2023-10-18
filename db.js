@@ -7,7 +7,7 @@ const uri = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@clu
 
 const dbName = "sportify";
 
-const client = new MongoClient(uri, {useUnifiedTopology: true});
+const client = new MongoClient(uri);
 
 async function connectToDatabase() {
   try {
