@@ -11,7 +11,7 @@ router.post("/register", async (req, res, next) => {
       throw error("Please provide name, email, photoURL and gender!", 400);
     }
 
-    data.role = "student";
+    data.role = "STUDENT";
 
     const result = await user.post(data);
 
