@@ -64,7 +64,7 @@ router.put("/user/:id", async (req, res, next) => {
       value.role = role[value.role.toLowerCase()];
     }
 
-    let isUser = await user.getById(id);
+    const isUser = await user.getById(id);
 
     if (!isUser) {
       throw error("User not Found!", 404);
@@ -76,9 +76,7 @@ router.put("/user/:id", async (req, res, next) => {
       throw error("Failed to update user.", 404);
     }
 
-    isUser = await user.getById(id);
-
-    res.json({message: "User updated successfully!", user: isUser});
+    res.json({message: "User updated successfully!"});
   } catch (err) {
     next(err);
   }

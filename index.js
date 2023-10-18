@@ -14,6 +14,10 @@ app.get("/", (req, res) => {
   res.send("Home, Route is available!");
 });
 
+app.use((req, res, next) => {
+  res.send("404 Not Found!");
+});
+
 app.use((err, req, res, next) => {
   console.log(err);
 

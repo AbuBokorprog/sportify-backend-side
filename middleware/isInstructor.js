@@ -1,8 +1,8 @@
 const error = require("../utils/error");
 
-const isAdmin = (req, res, next) => {
+const isInstructor = (req, res, next) => {
   try {
-    if (req.user.role !== "ADMIN") {
+    if (req.user.role !== "INSTRUCTOR") {
       throw error("You are not allowed to this route!", 403);
     }
     next();
@@ -10,4 +10,4 @@ const isAdmin = (req, res, next) => {
     next(err);
   }
 };
-module.exports = isAdmin;
+module.exports = isInstructor;

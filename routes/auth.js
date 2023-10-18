@@ -15,7 +15,7 @@ router.post("/register", async (req, res, next) => {
 
     const result = await user.post(data);
 
-    res.status(201).json({message: "User created successfully!", result});
+    res.status(201).json({...result, message: "User created successfully!"});
   } catch (err) {
     next(err);
   }
@@ -27,6 +27,12 @@ router.post("/login", async (req, res, next) => {
   try {
     if (!data.name || !data.email) {
       throw error("Please provide name and email!", 404);
+    }
+
+    const isUser = await user.getByEmail(data.email);
+
+    if (!isUser) {
+      throw error("User not found!", 404);
     }
 
     const token = jwt.sign(data, process.env.AUTH_SECRET_KEY);
