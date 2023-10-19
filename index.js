@@ -1,12 +1,15 @@
 require("dotenv").config();
 const express = require("express");
 const app = express();
+const cors = require("cors");
 const port = process.env.PORT || 3001;
 
 const routes = require("./routes");
 const {connectToDatabase} = require("./db");
+const error = require("./utils/error");
 
 app.use(express.json());
+app.use(cors());
 
 app.use(routes);
 
@@ -15,7 +18,7 @@ app.get("/", (req, res) => {
 });
 
 app.use((req, res, next) => {
-  res.send("404 Not Found!");
+  throw error("Route is not available", 404);
 });
 
 app.use((err, req, res, next) => {
