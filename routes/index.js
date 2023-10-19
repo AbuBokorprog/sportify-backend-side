@@ -11,9 +11,9 @@ const instructorRoutes = require("./instructor");
 const courseRoutes = require("./course");
 
 router.use("/auth", authRoutes);
-router.use("/user", userRoutes); //authenticate
-router.use("/admin", isAdmin, adminRoutes); //authenticate
-router.use("/instructor", isInstructor, instructorRoutes); //authenticate
+router.use("/user", authenticate, userRoutes);
+router.use("/admin", authenticate, isAdmin, adminRoutes);
+router.use("/instructor", authenticate, isInstructor, instructorRoutes);
 
 router.use("/course", courseRoutes);
 
